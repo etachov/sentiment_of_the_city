@@ -32,7 +32,7 @@ speech_sentences <- unnest_tokens(text_raw, output = "sentences", input = "text"
 
 ### sentiment scoring -----
 
-# use sentimentr::sentiment to score the sentences using Jocker dictionary
+# use sentimentr::sentiment to score the sentences 
 full_sentiment <- sentiment(speech_sentences$sentences,
                             # take the full sentence into account
                             n.before = Inf, n.after = Inf) %>% 
@@ -82,11 +82,12 @@ sent_change <- ggplot(speech_sent, aes(x = element_id, y = sentiment)) +
        subtitle = "While the speeches are generally positive\nmany have darker sections") +
   theme_minimal(base_family = "mono", base_size = 18) 
 
-## philly focus
+## philly focus -----
 
 sent_change_philadelphia <- ggplot(speech_sent_philadelphia, aes(x = element_id, y = sentiment)) +
   # highlight high sentiment
   geom_rect(aes(xmin = 110, xmax = 115, ymin = -.7, ymax = 1), fill = "lightgrey") +
+  # highlight low sentiment
   geom_rect(aes(xmin = 138, xmax = 142, ymin = -.7, ymax = 1), fill = "lightgrey") +
   geom_line(alpha = .1) +
   geom_line(aes(x = element_id, y = 0), color = "#696969", size = 1) +
